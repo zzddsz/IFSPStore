@@ -1,9 +1,5 @@
 ﻿using IFSPStore.Domain.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IFSPStore.Domain.Entities
 {
@@ -11,32 +7,37 @@ namespace IFSPStore.Domain.Entities
     {
         public Sale()
         {
-            
+            Salesman = null!;
+            Customer = null!;
+            SaleItens = new List<SaleItem>();
         }
-        public Sale(int id, DateTime saleDate, decimal saleTotal, User salesman, Customer customer) : base (id)
+
+        public Sale(int id, DateTime saleDate, decimal saleTotal, User salesman, Customer customer) : base(id)
         {
             Id = id;
             SaleDate = saleDate;
             SaleTotal = saleTotal;
             Salesman = salesman;
             Customer = customer;
-            SaleItems = new List<SaleItem>();
+            SaleItens = new List<SaleItem>();
         }
+
         public DateTime SaleDate { get; set; }
         public decimal SaleTotal { get; set; }
         public User Salesman { get; set; }
         public int UserId { get; set; }
         public Customer Customer { get; set; }
-        public List<SaleItem> SaleItems { get; set; }
+        public List<SaleItem> SaleItens { get; set; }
     }
 
     public class SaleItem : BaseEntity<int>
     {
         public SaleItem()
         {
-            
+            Sale = null!;
+            Product = null!;
         }
-        public SaleItem (int id, Sale sale, Product product, decimal quantity, decimal unitPrice, decimal totalPrice) : base (id)
+        public SaleItem(int id, Sale sale, Product product, decimal quantity, decimal unitPrice, decimal totalPrice) : base(id)
         {
             Sale = sale;
             Product = product;
@@ -44,6 +45,8 @@ namespace IFSPStore.Domain.Entities
             UnitPrice = unitPrice;
             TotalPrice = totalPrice;
         }
+
+        public int SaleId { get; set; }
 
         public Sale Sale { get; set; }
         public Product Product { get; set; }

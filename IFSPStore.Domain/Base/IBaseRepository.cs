@@ -8,6 +8,8 @@
         void Update(TEntity obj);
         void Delete(object obj);
         IList<TEntity> Select(IList<string>? includes = null);
+        public TEntity Select(int id, IList<string>? includes = null);
+
         TEntity SelectById(int id, IList<string>? includes = null);
     }
 }
