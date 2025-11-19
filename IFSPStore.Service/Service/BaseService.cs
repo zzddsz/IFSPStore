@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using IFSPStore.Domain.Base;
-using Microsoft.IdentityModel.Tokens.Experimental; 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IFSPStore.Service.Service
 {
+
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : IBaseEntity
     {
         private readonly IBaseRepository<TEntity> _baseRepository;
@@ -45,6 +48,17 @@ namespace IFSPStore.Service.Service
             _baseRepository.ClearChangeTracker();
             _baseRepository.Delete(id);
         }
+
+        public ICollection<TEntity> Get()
+        {
+            return _baseRepository.Select(null).ToList();
+        }
+
+        public TEntity GetById(int id)
+        {
+            return _baseRepository.Select(id, null);
+        }
+
         public IEnumerable<TOutputModel> GetAll<TOutputModel>(IList<string> includes = null) where TOutputModel : class
         {
             var entities = _baseRepository.Select(includes);

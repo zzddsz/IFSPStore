@@ -7,7 +7,7 @@ namespace IFSPStore.Repository.Context
 {
     public class IFSPStoreContext : DbContext
     {
-        public IFSPStoreContext() : base()
+        public IFSPStoreContext(DbContextOptions<IFSPStoreContext>? op = null) : base()
         {
             Database.EnsureCreated();
         }
@@ -35,5 +35,6 @@ namespace IFSPStore.Repository.Context
             modelBuilder.Entity<Sale>(new SaleMap().Configure);
             modelBuilder.Entity<SaleItem>(new SaleItemMap().Configure);
         }
+      
     }
 }

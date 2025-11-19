@@ -15,7 +15,6 @@ namespace IFSPStore.Repository.Mapping
             builder.Property(prop => prop.Name)
                 .IsRequired()
                 .HasMaxLength(50);
-            // .HasColumnType("varchar(50)");
 
         }
     }
