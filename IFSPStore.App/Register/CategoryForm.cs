@@ -1,6 +1,7 @@
-﻿using IFSPStore.Domain.Base;
+﻿using IFSPStore.App.ViewModel;
+using IFSPStore.Domain.Base;
 using IFSPStore.Domain.Entities;
-using IFSPStore.Service.Validations;
+using IFSPStore.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,14 +11,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-
 namespace IFSPStore.App.Register
 {
     public partial class CategoryForm : Base.BaseForm
     {
         private IBaseService<Category> _categoryService;
-        private List<Category>? categories;
+        private List<CategoryViewModel>? categories;
         public CategoryForm(IBaseService<Category> categoryService)
         {
             _categoryService = categoryService;
@@ -28,7 +27,6 @@ namespace IFSPStore.App.Register
         {
             category.Name = txtName.Text;
         }
-
         protected override void Save()
         {
             try
@@ -36,7 +34,7 @@ namespace IFSPStore.App.Register
                 if (IsEditMode)
                 {
                     int.TryParse(txtId.Text, out int id);
-                    var category = _categoryService.GetById(id);
+                    var category = _categoryService.GetById<Category>(id);
                     FormToObject(category);
                     category = _categoryService.Update<Category, Category, CategoryValidator>(category);
                 }
@@ -71,7 +69,7 @@ namespace IFSPStore.App.Register
 
         protected override void PopulateGrid()
         {
-            categories = _categoryService.Get().ToList();
+            categories = _categoryService.Get<CategoryViewModel>().ToList();
             dataGridViewList.DataSource = categories;
             dataGridViewList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }

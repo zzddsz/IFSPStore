@@ -11,7 +11,7 @@ namespace IFSPStore.App
         [STAThread]
         static void Main()
         {
-            ConfigureID.ConfigureServices();
+            ConfigureDI.ConfigureServices();
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
         }

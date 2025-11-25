@@ -4,7 +4,7 @@ using IFSPStore.Domain.Entities;
 using IFSPStore.Repository.Context;
 using IFSPStore.Repository.Repository;
 using IFSPStore.Service.Service;
-using IFSPStore.Service.Validations;
+using IFSPStore.Service.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Text.Json;

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using IFSPStore.Domain.Entities;
 
-namespace IFSPStore.Service.Validations
+namespace IFSPStore.Service.Validators
 {
     public class CustomerValidator : AbstractValidator<Customer>
     {

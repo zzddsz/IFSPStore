@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IFSPStore.App.Register;
 using IFSPStore.App.ViewModel;
 using IFSPStore.Domain.Base;
 using IFSPStore.Domain.Entities;
@@ -11,10 +12,10 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace IFSPStore.App.Infra
 {
-    public static class ConfigureID
+    public static class ConfigureDI
     {
-        private static ServiceCollection services;
-        private static IServiceProvider? serviceProvider;
+        public static ServiceCollection services;
+        public static IServiceProvider? serviceProvider;
         public static void ConfigureServices()
         {
             //Database config
@@ -30,8 +31,7 @@ namespace IFSPStore.App.Infra
                 );
             services.AddScoped<IBaseRepository<Category>, BaseRepository<Category>>();
             services.AddScoped<IBaseService<Category>, BaseService<Category>>();
-            services.AddSingleton(new MapperConfiguration(config => { config.CreateMap<Category, Category>(); }, NullLoggerFactory.Instance).CreateMapper());
-            serviceProvider = services.BuildServiceProvider();
+            services.AddScoped<CategoryForm, CategoryForm>();
 
             services.AddSingleton(
                 new MapperConfiguration(
@@ -39,7 +39,6 @@ namespace IFSPStore.App.Infra
                     NullLoggerFactory.Instance).CreateMapper());
 
             serviceProvider = services.BuildServiceProvider();
-
         }
     }
 }

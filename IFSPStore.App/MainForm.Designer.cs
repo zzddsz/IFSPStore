@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ReaLTaiizor.ControlRenderer controlRenderer2 = new ReaLTaiizor.ControlRenderer();
-            ReaLTaiizor.MSColorTable msColorTable2 = new ReaLTaiizor.MSColorTable();
+            ReaLTaiizor.ControlRenderer controlRenderer1 = new ReaLTaiizor.ControlRenderer();
+            ReaLTaiizor.MSColorTable msColorTable1 = new ReaLTaiizor.MSColorTable();
             formMenuStrip = new ReaLTaiizor.Controls.FormMenuStrip();
             registerToolStripMenuItem = new ToolStripMenuItem();
             userToolStripMenuItem = new ToolStripMenuItem();
@@ -50,9 +50,9 @@
             formMenuStrip.Items.AddRange(new ToolStripItem[] { registerToolStripMenuItem, reportToolStripMenuItem, helpToolStripMenuItem, closeToolStripMenuItem });
             formMenuStrip.Location = new Point(3, 64);
             formMenuStrip.Name = "formMenuStrip";
-            controlRenderer2.ColorTable = msColorTable2;
-            controlRenderer2.RoundedEdges = true;
-            formMenuStrip.Renderer = controlRenderer2;
+            controlRenderer1.ColorTable = msColorTable1;
+            controlRenderer1.RoundedEdges = true;
+            formMenuStrip.Renderer = controlRenderer1;
             formMenuStrip.Size = new Size(794, 28);
             formMenuStrip.TabIndex = 1;
             formMenuStrip.Text = "formMenuStrip1";
@@ -78,6 +78,7 @@
             categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
             categoryToolStripMenuItem.Size = new Size(224, 26);
             categoryToolStripMenuItem.Text = "Category";
+            categoryToolStripMenuItem.Click += categoryToolStripMenuItem_Click;
             // 
             // productToolStripMenuItem
             // 
@@ -128,7 +129,7 @@
             closeToolStripMenuItem.Size = new Size(59, 24);
             closeToolStripMenuItem.Text = "Close";
             // 
-            // BaseForm
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -136,7 +137,7 @@
             Controls.Add(formMenuStrip);
             IsMdiContainer = true;
             MainMenuStrip = formMenuStrip;
-            Name = "BaseForm";
+            Name = "MainForm";
             Text = "IFSP Store";
             WindowState = FormWindowState.Maximized;
             formMenuStrip.ResumeLayout(false);

@@ -1,27 +1,20 @@
 ﻿using FluentValidation;
-using System.Collections.Generic;
+
 namespace IFSPStore.Domain.Base
 {
     public interface IBaseService<TEntity> where TEntity : IBaseEntity
     {
-        void AttachObject(object obj);
-
+        public void AttachObject(object obj);
         TOutputModel Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TValidator : AbstractValidator<TEntity>
             where TInputModel : class
             where TOutputModel : class;
-
         void Delete(int id);
-
-        ICollection<TEntity> Get();
-
-        TEntity GetById(int id);
-
+        IEnumerable<TOutputModel> Get<TOutputModel>(IList<string>? includes = null) where TOutputModel : class;
+        TOutputModel GetById<TOutputModel>(int id, IList<string>? includes = null) where TOutputModel : class;
         TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TValidator : AbstractValidator<TEntity>
             where TInputModel : class
             where TOutputModel : class;
-        object Get<T>();
-        T GetById<T>(int id);
     }
 }
