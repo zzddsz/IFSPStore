@@ -41,6 +41,7 @@
             reportToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             closeToolStripMenuItem = new ToolStripMenuItem();
+            lblUser = new Label();
             formMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,14 +70,15 @@
             // 
             userToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             userToolStripMenuItem.Name = "userToolStripMenuItem";
-            userToolStripMenuItem.Size = new Size(224, 26);
+            userToolStripMenuItem.Size = new Size(155, 26);
             userToolStripMenuItem.Text = "User";
+            userToolStripMenuItem.Click += userToolStripMenuItem_Click;
             // 
             // categoryToolStripMenuItem
             // 
             categoryToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            categoryToolStripMenuItem.Size = new Size(224, 26);
+            categoryToolStripMenuItem.Size = new Size(155, 26);
             categoryToolStripMenuItem.Text = "Category";
             categoryToolStripMenuItem.Click += categoryToolStripMenuItem_Click;
             // 
@@ -84,29 +86,33 @@
             // 
             productToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             productToolStripMenuItem.Name = "productToolStripMenuItem";
-            productToolStripMenuItem.Size = new Size(224, 26);
+            productToolStripMenuItem.Size = new Size(155, 26);
             productToolStripMenuItem.Text = "Product";
+            productToolStripMenuItem.Click += productToolStripMenuItem_Click;
             // 
             // cityToolStripMenuItem
             // 
             cityToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             cityToolStripMenuItem.Name = "cityToolStripMenuItem";
-            cityToolStripMenuItem.Size = new Size(224, 26);
+            cityToolStripMenuItem.Size = new Size(155, 26);
             cityToolStripMenuItem.Text = "City";
+            cityToolStripMenuItem.Click += cityToolStripMenuItem_Click;
             // 
             // custumerToolStripMenuItem
             // 
             custumerToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             custumerToolStripMenuItem.Name = "custumerToolStripMenuItem";
-            custumerToolStripMenuItem.Size = new Size(224, 26);
-            custumerToolStripMenuItem.Text = "Custumer";
+            custumerToolStripMenuItem.Size = new Size(155, 26);
+            custumerToolStripMenuItem.Text = "Costumer";
+            custumerToolStripMenuItem.Click += custumerToolStripMenuItem_Click;
             // 
             // saleToolStripMenuItem
             // 
             saleToolStripMenuItem.ForeColor = Color.FromArgb(80, 80, 80);
             saleToolStripMenuItem.Name = "saleToolStripMenuItem";
-            saleToolStripMenuItem.Size = new Size(224, 26);
+            saleToolStripMenuItem.Size = new Size(155, 26);
             saleToolStripMenuItem.Text = "Sale";
+            saleToolStripMenuItem.Click += saleToolStripMenuItem_Click;
             // 
             // reportToolStripMenuItem
             // 
@@ -128,12 +134,24 @@
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             closeToolStripMenuItem.Size = new Size(59, 24);
             closeToolStripMenuItem.Text = "Close";
+            closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Dock = DockStyle.Bottom;
+            lblUser.Location = new Point(3, 427);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(41, 20);
+            lblUser.TabIndex = 3;
+            lblUser.Text = "User:";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblUser);
             Controls.Add(formMenuStrip);
             IsMdiContainer = true;
             MainMenuStrip = formMenuStrip;
@@ -159,5 +177,6 @@
         private ToolStripMenuItem reportToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem closeToolStripMenuItem;
+        private Label lblUser;
     }
 }

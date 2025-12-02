@@ -3,22 +3,25 @@ using IFSPStore.Domain.Entities;
 
 namespace IFSPStore.Service.Validators
 {
-    public class CustomerValidator : AbstractValidator<Customer>
+    public class CostumerValidator : AbstractValidator<Costumer>
     {
-        public CustomerValidator()
+        public CostumerValidator()
         {
             RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("O nome do cliente é obrigatório!");
+                .NotEmpty().WithMessage("Nome é obrigatório.")
+                .MaximumLength(100).WithMessage("Nome não pode ultrapassar 100 caracteres.");
             RuleFor(c => c.Address)
-                .NotEmpty().WithMessage("O endereço do cliente é obrigatório!");
+                .NotEmpty().WithMessage("Endereço é obrigatório.")
+                .MaximumLength(100).WithMessage("Endereço não pode ultrapassar 100 caracteres.");
             RuleFor(c => c.Document)
-                .NotEmpty().WithMessage("O documento do cliente é obrigatório!")
-                .MaximumLength(20).WithMessage("O documento do cliente não deve ultrapassar 20 caracteres.");
+                .NotEmpty().WithMessage("Documento é obrigatório.")
+                .MaximumLength(50).WithMessage("Documento não pode ultrapassar 50 caracteres.");
             RuleFor(c => c.District)
-                .NotEmpty().WithMessage("O bairro do cliente é obrigatório.")
-                .MaximumLength(100).WithMessage("O bairro do cliente não deve ultrapassar 100 caracteres.");
+                .NotEmpty().WithMessage("Distrito é obrigatório.")
+                .MaximumLength(50).WithMessage("Distrito não pode ultrapassar 50 caracteres.");
             RuleFor(c => c.City)
-                .NotNull().WithMessage("A cidade do cliente é obrigatória.");
+                .NotNull().WithMessage("Cidade é obrigatório.");
         }
+
     }
 }

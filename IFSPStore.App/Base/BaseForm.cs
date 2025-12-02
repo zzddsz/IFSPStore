@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using Mysqlx.Crud;
-using ReaLTaiizor.Controls;
+﻿using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
-
-//DD
 
 namespace IFSPStore.App.Base
 {
@@ -35,34 +31,47 @@ namespace IFSPStore.App.Base
             Save();
             tabControlRegister.SelectedIndex = 1;
         }
+
         private void btnNew_Click(object sender, EventArgs e)
         {
             New();
         }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             Edit();
         }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"Are you sure you want delete?", @"IFSP Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                var id = (int)dataGridViewList.SelectedRows[0].Cells["Id"].Value;
-                Delete(id);
-                PopulateGrid();
-            }
-            else
+            if (dataGridViewList.SelectedRows.Count <= 0)
             {
                 MessageBox.Show("Please, select any row!", @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; 
+            }
+
+            if (MessageBox.Show(@"Are you sure you want delete?", @"IFSP Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    var id = Convert.ToInt32(dataGridViewList.SelectedRows[0].Cells["Id"].Value);
+                    Delete(id);
+                    PopulateGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
         private void tabPageList_Enter(object sender, EventArgs e)
         {
             PopulateGrid();
         }
         #endregion
 
-        #region Methodes
+        #region Methods
         private void ClearFields()
         {
             IsEditMode = false;
@@ -88,12 +97,12 @@ namespace IFSPStore.App.Base
 
         protected virtual void Save()
         {
-
         }
+
         protected virtual void Delete(int id)
         {
-
         }
+
         protected virtual void Edit()
         {
             if (dataGridViewList.SelectedRows.Count > 0)
@@ -108,17 +117,15 @@ namespace IFSPStore.App.Base
             {
                 MessageBox.Show("Please, select any row!", @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
+
         protected virtual void GridToForm(DataGridViewRow? record)
         {
-
         }
+
         protected virtual void PopulateGrid()
         {
-
         }
-
         #endregion
     }
 }

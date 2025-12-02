@@ -79,5 +79,10 @@ namespace IFSPStore.App.Register
             txtId.Text = record.Cells["Id"].Value.ToString();
             txtName.Text = record.Cells["Name"].Value.ToString();
         }
+
+        private void CategoryForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

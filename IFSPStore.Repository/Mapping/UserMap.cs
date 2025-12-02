@@ -9,22 +9,20 @@ namespace IFSPStore.Repository.Mapping
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("User");
-
-            builder.HasKey(p => p.Id);
-
-            builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-
-            builder.Property(p => p.Login).IsRequired().HasMaxLength(50);
-
-            builder.Property(p => p.Email).IsRequired().HasMaxLength(100);
-
-            builder.Property(p => p.Password).IsRequired().HasMaxLength(100);
-
-            builder.Property(p => p.RegisterDate);
-
-            builder.Property(p => p.LoginDate);
-
-            builder.Property(p => p.IsActive);
+            builder.HasKey(prop => prop.Id);
+            builder.Property(prop => prop.Name)
+                .IsRequired();
+            builder.Property(prop => prop.Login)
+                .IsRequired();
+            builder.Property(prop => prop.Password)
+                .IsRequired();
+            builder.Property(prop => prop.Email)
+                .IsRequired();
+            builder.Property(prop => prop.RegisterDate)
+                .IsRequired();
+            builder.Property(prop => prop.LoginDate)
+                .IsRequired();
+            builder.Property(prop => prop.IsActive);
         }
     }
 }

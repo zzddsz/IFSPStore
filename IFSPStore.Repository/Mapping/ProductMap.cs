@@ -1,8 +1,6 @@
 ﻿using IFSPStore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Threading.Tasks;
-using System.Text;
 
 namespace IFSPStore.Repository.Mapping
 {
@@ -18,11 +16,10 @@ namespace IFSPStore.Repository.Mapping
             builder.Property(prop => prop.Price);
             builder.Property(prop => prop.Quantity);
             builder.Property(prop => prop.SalesUnit)
-            .HasMaxLength(10);
-            builder.HasOne(prop => prop.Category);
-
-
-
+                .HasMaxLength(10);
+            builder.HasOne(prop => prop.Category)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

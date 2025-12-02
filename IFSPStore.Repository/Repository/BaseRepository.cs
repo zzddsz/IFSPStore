@@ -12,6 +12,7 @@ namespace IFSPStore.Repository.Repository
         {
             _mySqlContext = mySqlContext;
         }
+
         public void AttachObject(object obj)
         {
             _mySqlContext.Attach(obj);
@@ -22,21 +23,27 @@ namespace IFSPStore.Repository.Repository
             _mySqlContext.ChangeTracker.Clear();
         }
 
-        public void Delete(object id)
-        {
-            _mySqlContext.Set<TEntity>().Remove(Select(id));
-            _mySqlContext.SaveChanges();
-        }
-
-        private TEntity Select(object id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(TEntity obj)
         {
             _mySqlContext.Set<TEntity>().Add(obj);
             _mySqlContext.SaveChanges();
+        }
+
+        public void Update(TEntity obj)
+        {
+            _mySqlContext.Entry(obj).State = EntityState.Modified;
+            _mySqlContext.SaveChanges();
+        }
+
+        public void Delete(object id)
+        {
+            // Busca o item pelo ID antes de tentar remover
+            var entity = Select((int)id);
+            if (entity != null)
+            {
+                _mySqlContext.Set<TEntity>().Remove(entity);
+                _mySqlContext.SaveChanges();
+            }
         }
 
         public IList<TEntity> Select(IList<string>? includes = null)
@@ -62,18 +69,13 @@ namespace IFSPStore.Repository.Repository
                     dbContext = dbContext.Include(include);
                 }
             }
-            return dbContext.ToList().Find(x => x.Id == (int)id);
-        }
-
-
-        public void Update(TEntity obj)
-        {
-            _mySqlContext.SaveChanges();
+            // Implementação correta
+            return dbContext.FirstOrDefault(x => x.Id == id);
         }
 
         public TEntity SelectById(int id, IList<string>? includes = null)
         {
-            throw new NotImplementedException();
+            return Select(id, includes);
         }
     }
 }
