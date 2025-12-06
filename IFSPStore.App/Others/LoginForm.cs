@@ -19,26 +19,21 @@ namespace IFSPStore.App.Others
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            // --- CÓDIGO LIMPO E OFICIAL ---
-
-            // Tenta buscar o usuário que foi digitado na tela
+           
             User? user = GetUser(txtLogin.Text, txtPassword.Text);
 
             if (user == null)
             {
-                // Se não achou ninguém com esse login E essa senha
                 MessageBox.Show("Invalid username or password.", "IFSP Store",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (!user.IsActive)
             {
-                // Se achou, mas está inativo
                 MessageBox.Show("User inactive!", "IFSP Store",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                // Se deu tudo certo
                 user.LoginDate = DateTime.Now;
                 user = _userService.Update<User, User, UserValidator>(user);
                 MainForm.user = user;

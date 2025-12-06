@@ -411,7 +411,6 @@
             Name = "SaleForm";
             Padding = new Padding(3, 113, 3, 5);
             Text = "Cadastro de Vendas";
-            Load += SaleForm_Load;
             tabControlRegister.ResumeLayout(false);
             tabPageRegister.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

@@ -8,7 +8,7 @@ namespace IFSPStore.App.Register
 {
     public partial class CityForm : BaseForm
     {
-        private readonly IBaseService<City> _cityService; // Melhoria: readonly
+        private readonly IBaseService<City> _cityService;
         private List<CityViewModel>? cities;
 
         public CityForm(IBaseService<City> cityService)
@@ -29,11 +29,9 @@ namespace IFSPStore.App.Register
             {
                 if (IsEditMode)
                 {
-                    // Proteção: Garante que o ID é um número válido
                     if (int.TryParse(txtId.Text, out int id))
                     {
                         var city = _cityService.GetById<City>(id);
-                        // Proteção: Verifica se encontrou a cidade antes de editar
                         if (city != null)
                         {
                             FormToObject(city);
@@ -47,9 +45,6 @@ namespace IFSPStore.App.Register
                     FormToObject(city);
                     _cityService.Add<City, City, CityValidator>(city);
                 }
-
-                // Opcional: Avisar sucesso ou atualizar grid se não for automático pelo BaseForm
-                // MessageBox.Show("Salvo com sucesso!", "IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -76,7 +71,6 @@ namespace IFSPStore.App.Register
                 cities = _cityService.Get<CityViewModel>().ToList();
                 dataGridViewList.DataSource = cities;
 
-                // Proteção: Verifica se a coluna existe antes de configurar
                 if (dataGridViewList.Columns["Name"] != null)
                 {
                     dataGridViewList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -92,7 +86,6 @@ namespace IFSPStore.App.Register
         {
             if (record == null) return;
 
-            // Proteção Crítica: O uso de ?.ToString() evita erro se o valor for nulo
             txtId.Text = record.Cells["Id"].Value?.ToString();
             txtName.Text = record.Cells["Name"].Value?.ToString();
             txtState.Text = record.Cells["State"].Value?.ToString();
@@ -100,7 +93,6 @@ namespace IFSPStore.App.Register
 
         private void CityForm_Load(object sender, EventArgs e)
         {
-            // Se necessário carregar algo ao abrir a tela
         }
     }
 }

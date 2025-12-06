@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using IFSPStore.App.Others; // Para o LoginForm
+using IFSPStore.App.Others;
 using IFSPStore.App.Register;
-using IFSPStore.App.ViewModel; // Singular, conforme seus arquivos
+using IFSPStore.App.ViewModel;
 using IFSPStore.Domain.Base;
 using IFSPStore.Domain.Entities;
 using IFSPStore.Repository.Context;
@@ -20,7 +20,6 @@ namespace IFSPStore.App.Infra
 
         public static void ConfigureServices()
         {
-            // --- Configuração do Banco de Dados ---
             var dbConfigFile = "Config/DBConfig.txt";
 
             if (!Directory.Exists("Config")) Directory.CreateDirectory("Config");
@@ -35,16 +34,14 @@ namespace IFSPStore.App.Infra
                 options.UseMySQL(strCon);
             });
 
-            // ---------------- REPOSITORIES ----------------
             services.AddScoped<IBaseRepository<Category>, BaseRepository<Category>>();
             services.AddScoped<IBaseRepository<City>, BaseRepository<City>>();
-            services.AddScoped<IBaseRepository<Costumer>, BaseRepository<Costumer>>(); // Entidade Costumer
+            services.AddScoped<IBaseRepository<Costumer>, BaseRepository<Costumer>>();
             services.AddScoped<IBaseRepository<Product>, BaseRepository<Product>>();
             services.AddScoped<IBaseRepository<Sale>, BaseRepository<Sale>>();
             services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
-            services.AddScoped<IBaseRepository<SaleItem>, BaseRepository<SaleItem>>(); // Adicionado SaleItem
+            services.AddScoped<IBaseRepository<SaleItem>, BaseRepository<SaleItem>>();
 
-            // ---------------- SERVICES ----------------
             services.AddScoped<IBaseService<Category>, BaseService<Category>>();
             services.AddScoped<IBaseService<City>, BaseService<City>>();
             services.AddScoped<IBaseService<Costumer>, BaseService<Costumer>>();
@@ -53,7 +50,6 @@ namespace IFSPStore.App.Infra
             services.AddScoped<IBaseService<User>, BaseService<User>>();
             services.AddScoped<IBaseService<SaleItem>, BaseService<SaleItem>>();
 
-            // ---------------- FORMS ----------------
             services.AddTransient<LoginForm>();
             services.AddTransient<CategoryForm>();
             services.AddTransient<CityForm>();
@@ -62,43 +58,34 @@ namespace IFSPStore.App.Infra
             services.AddTransient<CostumerForm>();
             services.AddTransient<SaleForm>();
 
-            // ---------------- AUTOMAPPER (Ajustado para seus arquivos) ----------------
             services.AddSingleton(
                 new MapperConfiguration(config =>
                 {
-                    // User -> UserViewModel
                     config.CreateMap<User, UserViewModel>();
 
-                    // Category -> CategoryViewModel
                     config.CreateMap<Category, CategoryViewModel>();
 
-                    // City -> CityViewModel
                     config.CreateMap<City, CityViewModel>()
                         .ForMember(d => d.NameState, o => o.MapFrom(s => $"{s.Name}/{s.State}"));
 
-                    // Costumer -> CostumerViewModel
                     config.CreateMap<Costumer, CostumerViewModel>()
-                        .ForMember(d => d.City, o => o.MapFrom(s => $"{s.City.Name}/{s.City.State}")) // Preenche a string 'City'
-                        .ForMember(d => d.IdCity, o => o.MapFrom(s => s.City.Id)); // Preenche o int 'IdCity'
+                        .ForMember(d => d.City, o => o.MapFrom(s => $"{s.City.Name}/{s.City.State}")) 
+                        .ForMember(d => d.IdCity, o => o.MapFrom(s => s.City.Id)); 
 
-                    // Product -> ProductViewModel
                     config.CreateMap<Product, ProductViewModel>()
-                        .ForMember(d => d.Category, o => o.MapFrom(s => s.Category.Name)) // ViewModel: Category (string)
-                        .ForMember(d => d.IdCategory, o => o.MapFrom(s => s.Category.Id)) // ViewModel: IdCategory (int)
-                        .ForMember(d => d.PurchaseDate, o => o.MapFrom(s => s.PurchaseDate.ToShortDateString())); // Converte DateTime para String
+                        .ForMember(d => d.Category, o => o.MapFrom(s => s.Category.Name)) 
+                        .ForMember(d => d.IdCategory, o => o.MapFrom(s => s.Category.Id)) 
+                        .ForMember(d => d.PurchaseDate, o => o.MapFrom(s => s.PurchaseDate.ToShortDateString()));
 
-                    // Sale -> SaleViewModel
                     config.CreateMap<Sale, SaleViewModel>()
-                        .ForMember(d => d.Salesman, o => o.MapFrom(s => s.Salesman.Name))   // ViewModel: Salesman (string)
-                        .ForMember(d => d.IdSalesman, o => o.MapFrom(s => s.Salesman.Id))   // ViewModel: IdSalesman (int)
-                        .ForMember(d => d.Customer, o => o.MapFrom(s => s.Costomer.Name))   // ATENÇÃO: Na sua Entidade Sale está escrito 'Costomer'
-                        .ForMember(d => d.IdCustomer, o => o.MapFrom(s => s.Costomer.Id));  // ATENÇÃO: Na sua Entidade Sale está escrito 'Costomer'
-
-                    // SaleItem -> SaleItemViewModel
+                        .ForMember(d => d.Salesman, o => o.MapFrom(s => s.Salesman.Name))   
+                        .ForMember(d => d.IdSalesman, o => o.MapFrom(s => s.Salesman.Id))   
+                        .ForMember(d => d.Customer, o => o.MapFrom(s => s.Customer.Name))   
+                        .ForMember(d => d.IdCustomer, o => o.MapFrom(s => s.Customer.Id));  
+                  
                     config.CreateMap<SaleItem, SaleItemViewModel>()
-                        .ForMember(d => d.Product, o => o.MapFrom(s => s.Product.Name))     // ViewModel: Product (string)
-                        .ForMember(d => d.IdProduct, o => o.MapFrom(s => s.Product.Id));    // ViewModel: IdProduct (int)
-
+                        .ForMember(d => d.Product, o => o.MapFrom(s => s.Product.Name))     
+                        .ForMember(d => d.IdProduct, o => o.MapFrom(s => s.Product.Id));    
                 }, NullLoggerFactory.Instance).CreateMapper());
 
             serviceProvider = services.BuildServiceProvider();

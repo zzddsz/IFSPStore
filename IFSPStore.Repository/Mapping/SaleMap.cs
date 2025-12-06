@@ -17,10 +17,10 @@ namespace IFSPStore.Repository.Mapping
             builder.HasOne(prop => prop.Salesman)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(prop => prop.Costomer)
+            builder.HasOne(prop => prop.Customer)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(prop => prop.SaleItems)
+            builder.HasMany(prop => prop.SaleItens)
                 .WithOne(prop => prop.Sale)
                 .OnDelete(DeleteBehavior.Cascade);
         }
@@ -35,7 +35,7 @@ namespace IFSPStore.Repository.Mapping
             builder.Property(prop => prop.UnitPrice);
             builder.Property(prop => prop.TotalPrice);
             builder.HasOne(prop => prop.Sale)
-                .WithMany(prop => prop.SaleItems)
+                .WithMany(prop => prop.SaleItens)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(prop => prop.Product)
                 .WithMany()
